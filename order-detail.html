@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <title>Order detail</title>
+</head>
+
+<body class="container-md bg-light">
+    <br><br>
+    <h2 class="text-center" style="color:green">*** ORDER DETAIL ***</h2>
+    <p class="text-center">Tra cứu mã đơn hàng và Thông tin chi tiết đơn hàng</p>
+    <div class="row bg-warning rounded-lg modal-dialog-centered" style="height: auto; padding: 15px">
+        <div class="row col-sm-6">
+            <div class="col-sm-4 modal-dialog-centered" style="text-align: center"><b>Nhập mã đơn <span
+                        style="color:red">(*)</span></b></div>
+            <input class="col-sm-8 form-control" type="text" id="order-input">
+        </div>
+        <div class="col-sm-6 text-center">
+            <button class="btn btn-success" onclick="onClickKiemTraDonHang()">Kiểm tra đơn hàng</button>
+        </div>
+    </div>
+    <br>
+    <div class="row bg-warning rounded-lg modal-dialog-centered" style="padding: 15px">
+        <div class="row col-sm-12" style="padding-bottom: 10px; padding-top: 10px">
+            <label class="col-sm-2">Họ và tên</label>
+            <input disabled style="background-color: white;" class="col-sm-4 form-control" id="hoVaTen" type="text" required>
+            <label class="col-sm-2">Tên loại Pizza</label>
+            <input disabled style="background-color: white;" class="col-sm-4 form-control" id="pizzaType" type="text">
+        </div>
+        <div class="row col-sm-12" style="padding-bottom: 10px">
+            <label class="col-sm-2">Số điện thoại</label>
+            <input disabled style="background-color: white;" class="col-sm-4 form-control" id="soDienThoai" type="text" required>
+            <label class="col-sm-2">Cỡ Pizza</label>
+            <input disabled style="background-color: white;" class="col-sm-4 form-control" id="pizzaSize" type="text">
+        </div>
+        <div class="row col-sm-12" style="padding-bottom: 20px">
+            <label class="col-sm-2">Địa chỉ</label>
+            <input disabled style="background-color: white;" class="col-sm-4 form-control" id="diaChi" type="text" required>
+            <label class="col-sm-2">Đường kính (cm)</label>
+            <input disabled style="background-color: white;" class="col-sm-4 form-control" id="duongKinh" type="text">
+        </div>
+        <div class="row col-sm-12" style="padding-bottom: 10px; padding-top: 10px">
+            <label class="col-sm-2">Email (nếu có)</label>
+            <input disabled style="background-color: white;" class="col-sm-4 form-control" id="email" type="text" required>
+            <label class="col-sm-2">Sườn nướng</label>
+            <input disabled style="background-color: white;" class="col-sm-4 form-control" id="suonNuong" type="text">
+        </div>
+        <div class="row col-sm-12" style="padding-bottom: 10px">
+            <label class="col-sm-2">Lời nhắn (nếu có)</label>
+            <input disabled style="background-color: white;" class="col-sm-4 form-control" id="loiNhan" type="text" required>
+            <label class="col-sm-2">Đồ uống</label>
+            <input disabled style="background-color: white;" class="col-sm-4 form-control" id="loaiDoUong" type="text">
+        </div>
+        <div class="row col-sm-12" style="padding-bottom: 20px">
+            <label class="col-sm-2">Mã voucher</label>
+            <input disabled style="background-color: white;" class="col-sm-4 form-control" id="maVoucher" type="text" required>
+            <label class="col-sm-2">Số lượng đồ uống</label>
+            <input disabled style="background-color: white;" class="col-sm-4 form-control" id="soLuongDoUong" type="text">
+        </div>
+
+        <div class="row col-sm-12" style="padding-bottom: 10px; padding-top: 10px">
+            <label class="col-sm-2">Trạng thái đơn hàng</label>
+            <input disabled style="background-color: white;" class="col-sm-4 form-control" id="trangThai" type="text" required>
+            <label class="col-sm-2">Salad (gr)</label>
+            <input disabled style="background-color: white;" class="col-sm-4 form-control" id="salad" type="text">
+        </div>
+        <div class="row col-sm-12" style="padding-bottom: 10px">
+            <label class="col-sm-2">Ngày tạo đơn</label>
+            <input disabled style="background-color: white;" class="col-sm-4 form-control" id="ngayTaoDon" type="text" required>
+            <label class="col-sm-2">Được giảm (%)</label>
+            <input disabled style="background-color: white;" class="col-sm-4 form-control" id="GiamGia" type="text">
+        </div>
+        <div class="row col-sm-12" style="padding-bottom: 20px">
+            <label class="col-sm-2">Ngày cập nhật</label>
+            <input disabled style="background-color: white;" class="col-sm-4 form-control" id="ngayCapNhat" type="text" required>
+            <label class="col-sm-2">Thành tiền (VND)</label>
+            <input disabled style="background-color: white;" class="col-sm-4 form-control" id="thanhTien" type="text">
+        </div>
+        <br><br>
+        <div class="text-center col-sm-12">
+            <button class="btn btn-danger" onclick="onClickReturnHome()">Về lại trang chủ đặt hàng</button>
+        </div>
+    </div>
+
+    <script>
+        // Sự kiện cho nút quay lại trang chủ
+        function onClickReturnHome() {
+            let v_URL = "pizza365index.html";
+            window.location.href = v_URL;
+        }
+
+        //lấy orderId từ query string
+        function getOrderIdFromQueryString() {
+            'use strict';
+            var vUrl = new URL(window.location.href);
+            var vOrderId = vUrl.searchParams.get('orderID');
+            console.log(vOrderId);
+            // Truyền giá trị của OrderID vào cho input Text
+            document.getElementById("order-input").value = vOrderId;
+        }
+        getOrderIdFromQueryString(); // Hàm từ chạy để gán giá trị cho input
+
+        // Tìm kiếm thông tin đơn hàng từ mã đơn hàng của khách hàng khi đặt hàng
+        function onClickKiemTraDonHang() {
+            vNewInputOrderId = document.getElementById("order-input").value
+            
+            // Thực thi công việc khi được bấm nút kiểm tra
+            getDataFromOrderId(vNewInputOrderId)
+        }
+        // Check orderID lấy từ input mã đơn hàng của khách hàng để gọi data từ server
+        function getDataFromOrderId(paramOrderId) {
+            'use strict';
+            const baseUrl = "http://42.115.221.44:8080/devcamp-pizza365/orders";
+            var xmlHttpGetOrderById = new XMLHttpRequest();
+            xmlHttpGetOrderById.open("GET", baseUrl + "/" + paramOrderId, true);
+            xmlHttpGetOrderById.send();
+            xmlHttpGetOrderById.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    //gửi thông tin là order id lên server
+                    processOderDataToInput(xmlHttpGetOrderById.responseText);
+                }
+            }
+        }
+        //Xử lý thông tin data nhận về
+        function processOderDataToInput(paramXmlHttpOrderId) {
+            'use strict';
+            console.log(paramXmlHttpOrderId);
+            // var vOrderId = document.getElementById("order-input");
+            var vPizzaSize = document.getElementById("pizzaSize");
+            var vDuongKinh = document.getElementById("duongKinh");
+            var vSuonNuong = document.getElementById("suonNuong")
+            var vSalad = document.getElementById("salad");
+            var vPizzaType = document.getElementById("pizzaType");
+            var vDoUong = document.getElementById("loaiDoUong");
+            var vSoLuongDoUong = document.getElementById("soLuongDoUong");
+            var vVoucherId = document.getElementById("maVoucher");
+                // vThanhTien = document.getElementById("thanhTien"); // Biến đã được khai báo
+            var vDiscount = document.getElementById("GiamGia");
+            var vHoVaTen = document.getElementById("hoVaTen");
+            var vEmail = document.getElementById("email");
+            var vSoDienThoai = document.getElementById("soDienThoai");
+            var vDiaChi = document.getElementById("diaChi");
+            var vLoiNhan = document.getElementById("loiNhan");
+            var vTrangThai = document.getElementById("trangThai");
+            var vNgayTaoDon = document.getElementById("ngayTaoDon");
+            var vNgayCapNhat = document.getElementById("ngayCapNhat");
+
+            // Tạo biến Object để gán cho các input đã thiết kế
+            var vDataReceived = JSON.parse(paramXmlHttpOrderId);
+
+            //gán giá trị cho các ô input
+            vPizzaSize.value = vDataReceived.kichCo;
+            vDuongKinh.value = vDataReceived.duongKinh;
+            vSuonNuong.value = vDataReceived.suon;
+            vSalad.value = vDataReceived.salad;
+            vPizzaType.value = vDataReceived.loaiPizza;
+            vDoUong.value = vDataReceived.idLoaiNuocUong;
+            vSoLuongDoUong.value = vDataReceived.soLuongNuoc;
+            vVoucherId.value = vDataReceived.idVourcher;
+            var vThanhTienTamThoi = vDataReceived.thanhTien; // Tạo tạm một biến trung gian để lưu kết quả tính toán giảm giá
+            vDiscount.value = vDataReceived.giamGia;
+            vHoVaTen.value = vDataReceived.hoTen;
+            vEmail.value = vDataReceived.email;
+            vSoDienThoai.value = vDataReceived.soDienThoai;
+            vDiaChi.value = vDataReceived.diaChi;
+            vLoiNhan.value = vDataReceived.loiNhan;
+            vTrangThai.value = vDataReceived.trangThai;
+            vNgayTaoDon.value = vDataReceived.ngayTao;
+            vNgayCapNhat.value = vDataReceived.ngayCapNhat;
+
+            // Xử lý riêng với thành tiền
+            var vThanhTien = vThanhTienTamThoi - vDiscount.value;
+            document.getElementById("thanhTien").value = vThanhTien;
+        }
+
+    </script>
+
+</body>
+
+</html>
